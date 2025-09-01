@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>Dashboard &mdash; Test Presensi</title>
-  <link rel="shortcut icon" href="{{ asset('assets/img/school.svg') }}" type="image/x-icon">
+  <title>Dashboard &mdash; App Presensi</title>
+  <link rel="shortcut icon" href="{{ asset('assets/img/sporta.svg') }}" type="image/x-icon">
 
   <!-- General CSS Files -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
