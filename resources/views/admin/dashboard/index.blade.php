@@ -3,6 +3,7 @@
 @section('content')
 <div class="main-content">
     <section class="section">
+        <!-- Header -->
         <div class="section-header mb-4">
             <h1 class="h3 fw-bold">Dashboard</h1>
         </div>
@@ -12,8 +13,9 @@
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div class="card h-100 shadow-sm border-0">
                     <div class="d-flex align-items-center p-3">
-                        <div class="card-icon bg-primary text-white rounded d-flex align-items-center justify-content-center me-3" style="width:60px; height:60px;">
-                            <i class="fa fa-book-open fa-lg"></i>
+                        <div class="bg-primary text-white rounded d-flex align-items-center justify-content-center me-3"
+                             style="width:60px; height:60px;">
+                            <i class="fa-solid fa-book-open fa-lg"></i>
                         </div>
                         <div class="flex-fill">
                             <h6 class="text-muted mb-1">BERITA</h6>
@@ -27,8 +29,9 @@
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div class="card h-100 shadow-sm border-0">
                     <div class="d-flex align-items-center p-3">
-                        <div class="card-icon bg-danger text-white rounded d-flex align-items-center justify-content-center me-3" style="width:60px; height:60px;">
-                            <i class="fa fa-bell fa-lg"></i>
+                        <div class="bg-danger text-white rounded d-flex align-items-center justify-content-center me-3"
+                             style="width:60px; height:60px;">
+                            <i class="fa-solid fa-bell fa-lg"></i>
                         </div>
                         <div class="flex-fill">
                             <h6 class="text-muted mb-1">AGENDA</h6>
@@ -42,8 +45,9 @@
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div class="card h-100 shadow-sm border-0">
                     <div class="d-flex align-items-center p-3">
-                        <div class="card-icon bg-warning text-white rounded d-flex align-items-center justify-content-center me-3" style="width:60px; height:60px;">
-                            <i class="fa fa-tags fa-lg"></i>
+                        <div class="bg-warning text-white rounded d-flex align-items-center justify-content-center me-3"
+                             style="width:60px; height:60px;">
+                            <i class="fa-solid fa-tags fa-lg"></i>
                         </div>
                         <div class="flex-fill">
                             <h6 class="text-muted mb-1">TAGS</h6>
@@ -57,8 +61,9 @@
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div class="card h-100 shadow-sm border-0">
                     <div class="d-flex align-items-center p-3">
-                        <div class="card-icon bg-success text-white rounded d-flex align-items-center justify-content-center me-3" style="width:60px; height:60px;">
-                            <i class="fa fa-users fa-lg"></i>
+                        <div class="bg-success text-white rounded d-flex align-items-center justify-content-center me-3"
+                             style="width:60px; height:60px;">
+                            <i class="fa-solid fa-users fa-lg"></i>
                         </div>
                         <div class="flex-fill">
                             <h6 class="text-muted mb-1">USERS</h6>

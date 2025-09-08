@@ -3,15 +3,17 @@
 @section('content')
 <div class="main-content">
     <section class="section">
+        <!-- Header -->
         <div class="section-header mb-4">
             <h1 class="h3 fw-bold">Permissions</h1>
         </div>
 
         <div class="section-body">
             <div class="card shadow-sm border-0">
+                <!-- Card Header -->
                 <div class="card-header bg-white">
                     <h4 class="mb-0">
-                        <i class="fas fa-key me-2"></i> Permissions
+                        <i class="fa-solid fa-key me-2"></i> Permissions
                     </h4>
                 </div>
 
@@ -22,7 +24,7 @@
                             <input type="text" class="form-control" name="q"
                                    placeholder="Cari berdasarkan nama permission">
                             <button type="submit" class="btn btn-primary">
-                                <i class="fa fa-search me-1"></i> Cari
+                                <i class="fa-solid fa-magnifying-glass me-1"></i> Cari
                             </button>
                         </div>
                     </form>
@@ -56,7 +58,7 @@
 
                         <!-- Pagination -->
                         <div class="d-flex justify-content-center">
-                            {{ $permissions->links("vendor.pagination.bootstrap-5") }}
+                            {{ $permissions->links('vendor.pagination.bootstrap-5') }}
                         </div>
                     </div>
                 </div>
@@ -65,4 +67,3 @@
     </section>
 </div>
 @endsection
-    

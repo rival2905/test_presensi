@@ -3,34 +3,40 @@
 @section('content')
 <div class="main-content">
     <section class="section">
+        <!-- Header -->
         <div class="section-header">
             <h1>Roles</h1>
         </div>
 
         <div class="section-body">
-            <div class="card shadow-sm">
+            <div class="card shadow-sm border-0">
+                <!-- Card Header -->
                 <div class="card-header bg-white">
-                    <h4 class="mb-0"><i class="fas fa-unlock"></i> Roles</h4>
+                    <h4 class="mb-0">
+                        <i class="fa-solid fa-unlock-keyhole me-2"></i> Roles
+                    </h4>
                 </div>
 
                 <div class="card-body">
+                    <!-- Search + Tambah -->
                     <form action="{{ route('admin.role.index') }}" method="GET">
                         <div class="mb-3">
                             <div class="input-group">
                                 @can('roles.create')
                                     <a href="{{ route('admin.role.create') }}" class="btn btn-primary me-2">
-                                        <i class="fa fa-plus-circle"></i> TAMBAH
+                                        <i class="fa-solid fa-circle-plus me-1"></i> TAMBAH
                                     </a>
                                 @endcan
                                 <input type="text" class="form-control" name="q"
                                        placeholder="Cari berdasarkan nama role">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-search"></i> CARI
+                                    <i class="fa-solid fa-magnifying-glass me-1"></i> CARI
                                 </button>
                             </div>
                         </div>
                     </form>
 
+                    <!-- Table -->
                     <div class="table-responsive">
                         <table class="table table-bordered align-middle">
                             <thead class="table-light">
@@ -57,7 +63,7 @@
                                         @can('roles.edit')
                                             <a href="{{ route('admin.role.edit', $role->id) }}" 
                                                class="btn btn-sm btn-primary me-1">
-                                                <i class="fa fa-pencil-alt"></i>
+                                                <i class="fa-solid fa-pen-to-square"></i>
                                             </a>
                                         @endcan
                                         
@@ -65,7 +71,7 @@
                                             <button onClick="Delete(this.id)" 
                                                     class="btn btn-sm btn-danger" 
                                                     id="{{ $role->id }}">
-                                                <i class="fa fa-trash"></i>
+                                                <i class="fa-solid fa-trash"></i>
                                             </button>
                                         @endcan
                                     </td>
@@ -74,8 +80,9 @@
                             </tbody>
                         </table>
 
+                        <!-- Pagination -->
                         <div class="d-flex justify-content-center">
-                            {{ $roles->links("vendor.pagination.bootstrap-5") }}
+                            {{ $roles->links('vendor.pagination.bootstrap-5') }}
                         </div>
                     </div>
                 </div>
@@ -85,9 +92,9 @@
 </div>
 
 <script>
-    //ajax delete
+    // Ajax delete
     function Delete(id) {
-        var token = $("meta[name='csrf-token']").attr("content");
+        var token = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 
         swal({
             title: "APAKAH KAMU YAKIN ?",
@@ -97,32 +104,36 @@
             dangerMode: true,
         }).then(function(isConfirm) {
             if (isConfirm) {
-                jQuery.ajax({
-                    url: "/admin/role/"+id,
-                    data: { "id": id, "_token": token },
-                    type: 'DELETE',
-                    success: function (response) {
-                        if (response.status == "success") {
-                            swal({
-                                title: 'BERHASIL!',
-                                text: 'DATA BERHASIL DIHAPUS!',
-                                icon: 'success',
-                                timer: 1000,
-                                buttons: false,
-                            }).then(() => location.reload());
-                        } else {
-                            swal({
-                                title: 'GAGAL!',
-                                text: 'DATA GAGAL DIHAPUS!',
-                                icon: 'error',
-                                timer: 1000,
-                                buttons: false,
-                            }).then(() => location.reload());
-                        }
+                fetch(`/admin/role/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': token,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ id: id })
+                }).then(res => res.json())
+                  .then(response => {
+                    if (response.status === "success") {
+                        swal({
+                            title: 'BERHASIL!',
+                            text: 'DATA BERHASIL DIHAPUS!',
+                            icon: 'success',
+                            timer: 1000,
+                            buttons: false,
+                        }).then(() => location.reload());
+                    } else {
+                        swal({
+                            title: 'GAGAL!',
+                            text: 'DATA GAGAL DIHAPUS!',
+                            icon: 'error',
+                            timer: 1000,
+                            buttons: false,
+                        }).then(() => location.reload());
                     }
                 });
             }
-        })
+        });
     }
 </script>
-@stop
+@endsection

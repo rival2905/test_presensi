@@ -3,14 +3,18 @@
 @section('content')
 <div class="main-content">
     <section class="section">
+        <!-- Header -->
         <div class="section-header">
             <h1>Tambah Role</h1>
         </div>
 
         <div class="section-body">
-            <div class="card shadow-sm">
-                <div class="card-header">
-                    <h4><i class="fas fa-unlock"></i> Tambah Role</h4>
+            <div class="card shadow-sm border-0">
+                <!-- Card Header -->
+                <div class="card-header bg-white">
+                    <h4 class="mb-0">
+                        <i class="fa-solid fa-unlock-keyhole me-2"></i> Tambah Role
+                    </h4>
                 </div>
 
                 <div class="card-body">
@@ -60,10 +64,10 @@
                         {{-- Action Buttons --}}
                         <div class="mt-4">
                             <button class="btn btn-primary me-2" type="submit">
-                                <i class="fa fa-paper-plane"></i> SIMPAN
+                                <i class="fa-solid fa-paper-plane me-1"></i> SIMPAN
                             </button>
                             <button class="btn btn-warning" type="reset">
-                                <i class="fa fa-redo"></i> RESET
+                                <i class="fa-solid fa-rotate-right me-1"></i> RESET
                             </button>
                         </div>
 
@@ -73,4 +77,4 @@
         </div>
     </section>
 </div>
-@stop
+@endsection
