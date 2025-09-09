@@ -22,6 +22,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone_number',
+        'date_of_birth',
+        'address',
+        'profile_pic'
     ];
 
     /**
@@ -45,5 +49,32 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+public function affiliations() {
+        return $this->hasMany(Affiliation::class, 'user_id');
+    }
+
+    public function attendanceRecords() {
+        return $this->hasMany(AttendanceRecord::class, 'user_id');
+    }
+
+    public function registrations() {
+        return $this->hasMany(EventRegistration::class, 'user_id');
+    }
+
+    public function subscriptions() {
+        return $this->hasMany(Subscription::class, 'user_id');
+    }
+
+    public function media() {
+        return $this->hasMany(Media::class, 'user_id');
+    }
+
+    public function children() {
+        return $this->hasMany(ParentChildRelationship::class, 'parent_user_id');
+    }
+
+    public function parents() {
+        return $this->hasMany(ParentChildRelationship::class, 'child_user_id');
     }
 }
