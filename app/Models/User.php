@@ -2,22 +2,16 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasRoles;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $fillable = [
         'name',
         'email',
@@ -28,21 +22,11 @@ class User extends Authenticatable
         'profile_pic'
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
@@ -50,7 +34,19 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-public function affiliations() {
+
+    /**
+     * Accessor untuk URL foto profil
+     */
+    public function getProfileUrlAttribute()
+    {
+        if ($this->profile_pic && Storage::disk('public')->exists($this->profile_pic)) {
+            return asset('storage/' . $this->profile_pic);
+        }
+        return asset('assets/img/avatar/avatar-1.png'); // fallback avatar default
+    }
+
+    public function affiliations() {
         return $this->hasMany(Affiliation::class, 'user_id');
     }
 

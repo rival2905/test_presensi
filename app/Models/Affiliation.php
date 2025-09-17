@@ -15,10 +15,6 @@ class Affiliation extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function role() {
-        return $this->belongsTo(Role::class, 'role_id');
-    }
-
     public function entity() {
         return $this->morphTo(__FUNCTION__, 'entity_type', 'entity_id');
     }

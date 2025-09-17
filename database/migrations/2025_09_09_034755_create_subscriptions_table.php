@@ -11,13 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('subscriptions', function (Blueprint $table) {
+       Schema::create('subscriptions', function (Blueprint $table) {
     $table->id('subscription_id');
-    $table->foreignId('user_id')->constrained('users','user_id')->cascadeOnDelete();
+    $table->unsignedBigInteger('user_id');
     $table->date('start_date');
     $table->date('end_date')->nullable();
-    $table->enum('status',['active','expired','canceled']);
+    $table->enum('status', ['active', 'expired', 'canceled']);
     $table->timestamps();
+
+    // Foreign key
+    $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 });
 
     }

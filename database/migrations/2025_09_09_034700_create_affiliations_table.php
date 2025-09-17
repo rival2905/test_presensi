@@ -11,15 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('affiliations', function (Blueprint $table) {
+       Schema::create('affiliations', function (Blueprint $table) {
     $table->id('affiliation_id');
-    $table->foreignId('user_id')->constrained('users','user_id');
-    $table->foreignId('role_id')->constrained('roles','role_id');
+    $table->unsignedBigInteger('user_id');
+    $table->unsignedBigInteger('role_id');
     $table->unsignedBigInteger('entity_id');
-    $table->enum('entity_type',['organization','group']);
-    $table->enum('status',['active','inactive','pending']);
+    $table->enum('entity_type', ['organization', 'group']);
+    $table->enum('status', ['active', 'inactive', 'pending']);
     $table->timestamp('joined_at')->nullable();
+
+    // Foreign keys
+    $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 });
+
 
     }
 

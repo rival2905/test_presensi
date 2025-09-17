@@ -8,14 +8,12 @@
   <title>Dashboard &mdash; App Sporta</title>
   <link rel="shortcut icon" href="{{ asset('assets/img/sporta.svg') }}" type="image/x-icon">
 
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-
 
   <!-- Bootstrap 5 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{ asset('assets/modules/fontawesome/css/all.min.css') }}">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 
   <!-- Select2 Bootstrap 5 -->
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -35,43 +33,65 @@
     <div class="main-wrapper main-wrapper-1">
       <div class="navbar-bg"></div>
 
-      <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg main-navbar">
-        <div class="container-fluid">
 
-          <!-- Sidebar toggle -->
-          <ul class="navbar-nav me-auto">
-            <li>
-              <a href="#" id="sidebarToggle" class="nav-link nav-link-lg">
-                <i class="fas fa-bars"></i>
-              </a>
-            </li>
-          </ul>
+          <!-- Navbar -->
+<nav class="navbar navbar-expand-lg main-navbar">
+  <div class="container-fluid">
 
-          <!-- Navbar Right -->
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item dropdown">
-              <a href="#" class="nav-link dropdown-toggle nav-link-lg nav-link-user"
-                 data-bs-toggle="dropdown" aria-expanded="false">
-                <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}" class="rounded-circle me-1">
-                <div class="d-sm-none d-lg-inline-block">Hi, {{ auth()->user()->name }}</div>
-              </a>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li>
-                  <a href="{{ route('logout') }}" style="cursor: pointer"
-                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                     class="dropdown-item text-danger">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                  </a>
-                </li>
-              </ul>
-              <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                @csrf
-              </form>
-            </li>
-          </ul>
-        </div>
-      </nav>
+    <!-- Sidebar toggle -->
+    <ul class="navbar-nav me-auto">
+      <li>
+        <a href="#" id="sidebarToggle" class="nav-link nav-link-lg">
+          <i class="fas fa-bars"></i>
+        </a>
+      </li>
+    </ul>
+
+    <!-- Navbar Right -->
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item dropdown">
+        <a href="#" class="nav-link dropdown-toggle nav-link-lg nav-link-user"
+           data-bs-toggle="dropdown" aria-expanded="false">
+           
+          <!-- Foto Profil -->
+<img alt="Profile"
+     src="{{ auth()->user()->profile_url }}"
+     class="rounded-circle me-1"
+     style="width: 35px; height: 35px; object-fit: cover;">
+
+<div class="d-sm-none d-lg-inline-block">
+  Hi, {{ auth()->user()->name }}
+</div>
+
+        </a>
+
+        <!-- Dropdown -->
+        <ul class="dropdown-menu dropdown-menu-end shadow">
+          <li>
+            <a href="{{ route('profile.edit') }}" class="dropdown-item">
+              <i class="fas fa-user-edit me-2"></i> Edit Profile
+            </a>
+          </li>
+          <li><hr class="dropdown-divider"></li>
+          <li>
+            <a href="{{ route('logout') }}" style="cursor: pointer"
+               onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+               class="dropdown-item text-danger">
+              <i class="fas fa-sign-out-alt me-2"></i> Logout
+            </a>
+          </li>
+        </ul>
+
+        <!-- Logout Form -->
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+          @csrf
+        </form>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
 
       <!-- Sidebar -->
 <div class="main-sidebar sidebar-style-2">
@@ -93,52 +113,67 @@
       </li>
 
       @can('categories.index')
-      <li class="{{ setActive('admin/category') }}">
-        <a class="nav-link" href="#">
-          <i class="fas fa-folder"></i>
-          <span>Kategori</span>
-        </a>
-      </li>
-      @endcan
+<li class="dropdown {{ setActive('admin/maincategories') }} {{ setActive('admin/subcategories') }}">
+  <a href="#" class="nav-link has-dropdown">
+    <i class="fas fa-folder"></i> <span>Kategori</span>
+  </a>
+  <ul class="dropdown-menu">
+    <li class="{{ setActive('admin/maincategories') }}">
+      <a class="nav-link" href="{{ route('admin.maincategories.index') }}">
+        <i class="fas fa-folder-open"></i> Main Category
+      </a>
+    </li>
+    <li class="{{ setActive('admin/subcategories') }}">
+      <a class="nav-link" href="{{ route('admin.subcategories.index') }}">
+        <i class="fas fa-folder-minus"></i> Sub Category
+      </a>
+    </li>
+  </ul>
+</li>
+@endcan
 
-      @if(auth()->user()->can('photos.index') || auth()->user()->can('videos.index'))
-        <li class="menu-header">GALERI</li>
-      @endif
+     @if(auth()->user()->can('photos.index') || auth()->user()->can('videos.index'))
+    <li class="menu-header">MEDIA</li>
+@endif
 
-      @can('photos.index')
-      <li class="{{ setActive('admin/photo') }}">
-        <a class="nav-link" href="#"><i class="fas fa-image"></i> <span>Foto</span></a>
-      </li>
-      @endcan
+@can('photos.index')
+<li class="{{ setActive('admin.medias.index', 'image') }}">
+  <a class="nav-link" href="{{ route('admin.medias.index', ['type' => 'image']) }}">
+    <i class="fas fa-image"></i> <span>Foto</span>
+  </a>
+</li>
+@endcan
 
-      @can('videos.index')
-      <li class="{{ setActive('admin/video') }}">
-        <a class="nav-link" href="#"><i class="fas fa-video"></i> <span>Video</span></a>
-      </li>
-      @endcan
+@can('videos.index')
+<li class="{{ setActive('admin.medias.index', 'video') }}">
+  <a class="nav-link" href="{{ route('admin.medias.index', ['type' => 'video']) }}">
+    <i class="fas fa-video"></i> <span>Video</span>
+  </a>
+</li>
+@endcan
 
-      {{-- ORGANISASI --}}
-      @if(auth()->user()->can('organizations.index') || auth()->user()->can('groups.index') || auth()->user()->can('affiliations.index'))
-        <li class="menu-header">ORGANISASI</li>
-      @endif
 
-      @can('organizations.index')
-      <li class="{{ setActive('admin/organization') }}">
-        <a class="nav-link" href="#"><i class="fas fa-building"></i> <span>Organizations</span></a>
-      </li>
-      @endcan
+     {{-- ORGANISASI --}}
+@if(auth()->user()->can('organizations.index') || auth()->user()->can('groups.index') || auth()->user()->can('affiliations.index'))
+    <li class="menu-header">ORGANISASI</li>
+@endif
 
-      @can('groups.index')
-      <li class="{{ setActive('admin/group') }}">
-        <a class="nav-link" href="#"><i class="fas fa-layer-group"></i> <span>Groups</span></a>
-      </li>
-      @endcan
+@can('organizations.index')
+<li class="{{ setActive('admin/organizations*') }}">
+    <a class="nav-link" href="{{ route('admin.organizations.index') }}">
+        <i class="fas fa-building"></i> <span>Organizations</span>
+    </a>
+</li>
+@endcan
 
-      @can('affiliations.index')
-      <li class="{{ setActive('admin/affiliation') }}">
-        <a class="nav-link" href="#"><i class="fas fa-link"></i> <span>Affiliations</span></a>
-      </li>
-      @endcan
+@can('groups.index')
+<li class="{{ setActive('admin/groups*') }}">
+    <a class="nav-link" href="{{ route('admin.groups.index') }}">
+        <i class="fas fa-layer-group"></i> <span>Groups</span>
+    </a>
+</li>
+@endcan
+
 
       {{-- AKTIVITAS --}}
       @if(auth()->user()->can('activities.index') || auth()->user()->can('attendances.index'))
@@ -146,16 +181,21 @@
       @endif
 
       @can('activities.index')
-      <li class="{{ setActive('admin/activity') }}">
-        <a class="nav-link" href="#"><i class="fas fa-running"></i> <span>Activities</span></a>
-      </li>
-      @endcan
+    <li class="{{ setActive('admin/activities*') }}">
+        <a class="nav-link" href="{{ route('admin.activities.index') }}">
+            <i class="fas fa-running"></i> <span>Activities</span>
+        </a>
+    </li>
+@endcan
 
-      @can('attendances.index')
-      <li class="{{ setActive('admin/attendance') }}">
-        <a class="nav-link" href="#"><i class="fas fa-check-circle"></i> <span>Attendance Records</span></a>
-      </li>
-      @endcan
+@can('attendances.index')
+<li class="{{ setActive('admin/attendance-records*') }}">
+    <a class="nav-link" href="{{ route('admin.attendance-records.index') }}">
+        <i class="fas fa-check-circle"></i> <span>Attendance Records</span>
+    </a>
+</li>
+@endcan
+
 
       {{-- EVENTS --}}
       @if(auth()->user()->can('events.index') || auth()->user()->can('schedules.index') || auth()->user()->can('registrations.index') || auth()->user()->can('payments.index'))
@@ -164,25 +204,25 @@
 
       @can('events.index')
       <li class="{{ setActive('admin/event') }}">
-        <a class="nav-link" href="#"><i class="fas fa-calendar"></i> <span>Events</span></a>
+        <a class="nav-link" href="{{ route('admin.events.index') }}"><i class="fas fa-calendar"></i> <span>Events</span></a>
       </li>
       @endcan
 
       @can('schedules.index')
       <li class="{{ setActive('admin/schedule') }}">
-        <a class="nav-link" href="#"><i class="fas fa-clock"></i> <span>Event Schedules</span></a>
+        <a class="nav-link" href="{{ route('admin.schedules.index') }}"><i class="fas fa-clock"></i> <span>Event Schedules</span></a>
       </li>
       @endcan
 
       @can('registrations.index')
       <li class="{{ setActive('admin/registration') }}">
-        <a class="nav-link" href="#"><i class="fas fa-edit"></i> <span>Event Registrations</span></a>
+        <a class="nav-link" href="{{ route('admin.registrations.index') }}"><i class="fas fa-edit"></i> <span>Event Registrations</span></a>
       </li>
       @endcan
 
       @can('payments.index')
       <li class="{{ setActive('admin/payment') }}">
-        <a class="nav-link" href="#"><i class="fas fa-credit-card"></i> <span>Payments</span></a>
+        <a class="nav-link" href="{{ route('admin.payments.index') }}"><i class="fas fa-credit-card"></i> <span>Payments</span></a>
       </li>
       @endcan
 
@@ -217,7 +257,6 @@
     </ul>
   </aside>
 </div>
-
 
       <!-- Main Content -->
       @yield('content')

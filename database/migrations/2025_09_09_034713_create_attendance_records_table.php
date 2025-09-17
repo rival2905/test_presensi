@@ -11,18 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('attendance_records', function (Blueprint $table) {
+       Schema::create('attendance_records', function (Blueprint $table) {
     $table->id('record_id');
-    $table->foreignId('activity_id')->constrained('activities','activity_id')->cascadeOnDelete();
-    $table->foreignId('user_id')->constrained('users','user_id')->cascadeOnDelete();
+    $table->unsignedBigInteger('activity_id');
+    $table->unsignedBigInteger('user_id');
     $table->string('photo_url')->nullable();
-    $table->decimal('latitude',10,7)->nullable();
-    $table->decimal('longitude',10,7)->nullable();
-    $table->enum('status',['masuk','izin','sakit']);
+    $table->decimal('latitude', 10, 7)->nullable();
+    $table->decimal('longitude', 10, 7)->nullable();
+    $table->enum('status', ['masuk', 'izin', 'sakit']);
     $table->string('reason')->nullable();
     $table->string('attachment_url')->nullable();
     $table->timestamp('timestamp')->useCurrent();
+
+    // Foreign keys
+    $table->foreign('activity_id')->references('activity_id')->on('activities')->onDelete('cascade');
+    $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 });
+
 
     }
 

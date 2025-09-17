@@ -45,12 +45,6 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => 'groups.edit']);
         Permission::create(['name' => 'groups.delete']);
 
-        // Affiliations
-        Permission::create(['name' => 'affiliations.index']);
-        Permission::create(['name' => 'affiliations.create']);
-        Permission::create(['name' => 'affiliations.edit']);
-        Permission::create(['name' => 'affiliations.delete']);
-
         // Activities
         Permission::create(['name' => 'activities.index']);
         Permission::create(['name' => 'activities.create']);

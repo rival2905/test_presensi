@@ -10,6 +10,7 @@ class Event extends Model
     use HasFactory;
 
     protected $primaryKey = 'event_id';
+    public $timestamps = true;
 
     protected $fillable = [
         'parent_event_id','host_group_id','title','description',

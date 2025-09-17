@@ -11,6 +11,7 @@ class Payment extends Model
     use HasFactory;
 
     protected $primaryKey = 'payment_id';
+    public $timestamps = true;
 
     protected $fillable = ['registration_id','amount','payment_method','status','paid_at'];
 

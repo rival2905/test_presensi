@@ -12,7 +12,7 @@ class Media extends Model
     protected $primaryKey = 'media_id';
     public $timestamps = false;
 
-    protected $fillable = ['user_id','group_id','file_url','type','description','uploaded_at'];
+    protected $fillable = ['user_id','group_id','file_url','type','mime_type', 'description','uploaded_at'];
 
     public function user() {
         return $this->belongsTo(User::class, 'user_id');
